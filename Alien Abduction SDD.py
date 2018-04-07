@@ -3,6 +3,7 @@ import time
 import cmd
 import textwrap
 import os
+import sys
 ## Player Creation##
 
 #class Occupation(object):
@@ -23,6 +24,7 @@ class Fireman:
     attack = '20'
     name = ''
     inventory = []
+    location = 'a1'
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -33,13 +35,15 @@ class Fireman:
     def print_stats(self):
         print("Health =", self.health)
         print("Attack =", self.attack)
-        
+player = Fireman()    
+
 
 class Chef:
     health = '80'
     attack = '10'
     name = ''
     inventory = []
+    location = 'a1'
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -50,6 +54,7 @@ class Chef:
     def print_stats(self):
         print("Health =", self.health)
         print("Attack =", self.attack)
+player = Chef()
 
 
 class Martial_Artist:
@@ -57,6 +62,7 @@ class Martial_Artist:
     attack = '30'
     name = ''
     inventory = []
+    location = 'a1'
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -67,6 +73,7 @@ class Martial_Artist:
     def print_stats(self):
         print("Health =", self.health)
         print("Attack =", self.attack)
+player = Martial_Artist()
 
 
 class Gambler:
@@ -74,6 +81,7 @@ class Gambler:
     attack = '40'
     name = ''
     inventory = []
+    location = 'a1'
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -84,6 +92,7 @@ class Gambler:
     def print_stats(self):
         print("Health =", self.health)
         print("Attack =", self.attack)
+player = Gambler()
 
 class Alien:
     health = '15'
@@ -188,12 +197,13 @@ def game_map():
     -------------
     """
 
+    ZONENAME = ''
     EXAMINATION = 'examine'
     INSIDE = False
     UP = 'up', 'north'
     DOWN = 'down', 'south'
     LEFT = 'left', 'west'
-    Right = 'right', 'east'
+    RIGHT = 'right', 'east'
 
     inside_places = {'a1': False, 'a2': False, 'a3': False, 'a4': False,
                      'b1': False, 'b2': False, 'b3': False, 'b4': False,
@@ -210,7 +220,7 @@ def game_map():
             DOWN: 'b1',
             LEFT: '',
             RIGHT: 'a2',
-
+        },
         'a2': {
             ZONENAME: "",
             EXAMINATION: '',
@@ -219,132 +229,180 @@ def game_map():
             DOWN: 'b2',
             LEFT: 'a1',
             RIGHT: 'a3',
-
+        },
         'a3': {
-            ZONENAME = "",
-            EXAMINATION = '',
-            INSIDE = False,
-            UP = '',
-            DOWN = 'b3',
-            LEFT = 'a2',
-            RIGHT = 'a4',
-
+            ZONENAME: "",
+            EXAMINATION: '',
+            INSIDE: False,
+            UP: '',
+            DOWN: 'b3',
+            LEFT: 'a2',
+            RIGHT: 'a4',
+        },
         'a4': {
             ZONENAME: "",
-            EXAMINATION = '',
-            INSIDE = False,
-            UP = '',
-            DOWN = 'b4',
-            LEFT = 'a3',
-            RIGHT = '',
-
+            EXAMINATION: '',
+            INSIDE: False,
+            UP: '',
+            DOWN: 'b4',
+            LEFT: 'a3',
+            RIGHT: '',
+        },
         'b1': {
             ZONENAME: "",
-            EXAMINATION = '',
-            INSIDE = False,
-            UP = 'a1',
-            DOWN = 'c1',
-            LEFT = '',
-            RIGHT = 'b2',
-
+            EXAMINATION: '',
+            INSIDE: False,
+            UP: 'a1',
+            DOWN: 'c1',
+            LEFT: '',
+            RIGHT: 'b2',
+        },
         'b2': {
             ZONENAME: "",
-            EXAMINATION = '',
-            INSIDE = False,
-            UP = 'a2',
-            DOWN = 'c2',
-            LEFT = 'b1',
-            RIGHT = 'b3',
-
+            EXAMINATION: '',
+            INSIDE: False,
+            UP: 'a2',
+            DOWN: 'c2',
+            LEFT: 'b1',
+            RIGHT: 'b3',
+        },
         'b3': {
             ZONENAME: "",
-            EXAMINATION = '',
-            INSIDE = False, 
-            UP = 'a3',
-            DOWN = 'c3',
-            LEFT = '
-            RIGHT =
-
+            EXAMINATION: '',
+            INSIDE: False, 
+            UP: 'a3',
+            DOWN: 'c3',
+            LEFT: 'b2',
+            RIGHT: 'b4',
+        },
         'b4': {
             ZONENAME: "",
-            EXAMINATION =
-            INSIDE = False
-            UP = 
-            DOWN = 
-            LEFT =
-            RIGHT =
-
+            EXAMINATION: '',
+            INSIDE: False,
+            UP: 'a4' ,
+            DOWN: 'c4',
+            LEFT: 'b3',
+            RIGHT: '',
+        },
         'c1': {
             ZONENAME: "",
-            EXAMINATION =
-            INSIDE = False
-            UP = 
-            DOWN = 
-            LEFT =
-            RIGHT =
-
+            EXAMINATION: '',
+            INSIDE: False,
+            UP: 'b1',
+            DOWN: 'd1',
+            LEFT: '',
+            RIGHT: 'c2',
+        },
         'c2': {
             ZONENAME: "",
-            EXAMINATION =
-            INSIDE = False
-            UP = 
-            DOWN = 
-            LEFT =
-            RIGHT =
-
+            EXAMINATION: '',
+            INSIDE: False,
+            UP: 'b2',
+            DOWN: 'd2',
+            LEFT: 'c1',
+            RIGHT: 'c3',
+        },
         'c3': {
             ZONENAME: "",
-            EXAMINATION =
-            INSIDE = False
-            UP = 
-            DOWN = 
-            LEFT =
-            RIGHT =
-
+            EXAMINATION: '',
+            INSIDE: False,
+            UP: 'b3',
+            DOWN: 'd3',
+            LEFT: 'c2',
+            RIGHT: 'c4',
+        },
         'c4': {
             ZONENAME: "",
-            EXAMINATION =
-            INSIDE = False
-            UP = 
-            DOWN = 
-            LEFT =
-            RIGHT =
-
+            EXAMINATION: '',
+            INSIDE: False,
+            UP: 'b4',
+            DOWN: 'd4',
+            LEFT: 'c3',
+            RIGHT: '',
+        },
         'd1': {
             ZONENAME: "",
-            EXAMINATION =
-            INSIDE = False
-            UP = 
-            DOWN = 
-            LEFT =
-            RIGHT =
-
+            EXAMINATION: '',
+            INSIDE: False,
+            UP: 'c1',
+            DOWN: '',
+            LEFT: '',
+            RIGHT: 'd2',
+        },
         'd2': {
             ZONENAME: "",
-            EXAMINATION =
-            INSIDE = False
-            UP = 
-            DOWN = 
-            LEFT =
-            RIGHT =
-
+            EXAMINATION: '',
+            INSIDE: False,
+            UP: 'c2',
+            DOWN: '',
+            LEFT: 'd1',
+            RIGHT: 'd3',
+        },
         'd3': {
             ZONENAME: "",
-            EXAMINATION =
-            INSIDE = False
-            UP = 
-            DOWN = 
-            LEFT =
-            RIGHT =
-
+            EXAMINATION: '',
+            INSIDE: False,
+            UP: 'c3',
+            DOWN: '',
+            LEFT: 'd2',
+            RIGHT: 'd4',
+        },
         'd4': {
             ZONENAME: "",
-            EXAMINATION =
-            INSIDE = False
-            UP = 
-            DOWN = 
-            LEFT =
-            RIGHT =
+            EXAMINATION: '',
+            INSIDE: False,
+            UP: 'c4',
+            DOWN: '',
+            LEFT: 'd3',
+            RIGHT: '',
+        },
+}
+game_map()
+
+#MOVING AND STUFF
+def print_location():
+    print('\n')
+    print("You are in room", player.location)
+
+def prompt():
+    print('\n')
+    print("Would you like to do?")
+    print("1) Move room")
+    print("2) Examine rooms")
+    action = input("Number of choice: ")
+    acceptable_actions = ('1', '2')
+    while action.lower() not in action:
+        print("Action, unknown. Please try again."),
+        action = input("Number of choice: ")
+    if action == '1':
+        player_move()
+    elif action == '2':
+        player_examine()
+
+def player_move():
+    destination = input("Where do you want to go? ")
+    if destination == ['up', 'north']:
+        location = zonemap[player.location][UP],
+        movement_handler()
+    elif destination == ['down', 'south']:
+        location = zonemap[player.location][DOWN],
+        movement_handler()
+    elif destination == ['left', 'west']:
+        location = zonemap[player.location][LEFT],
+        movement_handler()
+    elif destination == ['right', 'east']:
+        location = zonemap[player.location][RIGHT],
+        movement_handler()
+
+def movement_handler():
+        location = player.location
+        print('\n' + 'You have moved to ' + location + '.')
+
+    
+        
+print_location()
+prompt()
+
             
 
 
