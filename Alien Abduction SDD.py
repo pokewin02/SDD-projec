@@ -199,13 +199,13 @@ def game_map():
 
     ZONENAME = ''
     EXAMINATION = 'examine'
-    INSIDE = False
+    DISCOVERED = False
     UP = 'up', 'north'
     DOWN = 'down', 'south'
     LEFT = 'left', 'west'
     RIGHT = 'right', 'east'
 
-    inside_places = {'a1': False, 'a2': False, 'a3': False, 'a4': False,
+    discovered_places = {'a1': False, 'a2': False, 'a3': False, 'a4': False,
                      'b1': False, 'b2': False, 'b3': False, 'b4': False,
                      'c1': False, 'c2': False, 'c3': False, 'c4': False,
                      'd1': False, 'd2': False, 'd3': False, 'd4': False,
@@ -215,7 +215,7 @@ def game_map():
         'a1': {
             ZONENAME: "",
             EXAMINATION: '',
-            INSIDE: False,
+            DISCOVERED: False,
             UP: '',
             DOWN: 'b1',
             LEFT: '',
@@ -224,7 +224,7 @@ def game_map():
         'a2': {
             ZONENAME: "",
             EXAMINATION: '',
-            INSIDE: False,
+            DISCOVERED: False,
             UP: '',
             DOWN: 'b2',
             LEFT: 'a1',
@@ -233,7 +233,7 @@ def game_map():
         'a3': {
             ZONENAME: "",
             EXAMINATION: '',
-            INSIDE: False,
+            DISCOVERED: False,
             UP: '',
             DOWN: 'b3',
             LEFT: 'a2',
@@ -242,7 +242,7 @@ def game_map():
         'a4': {
             ZONENAME: "",
             EXAMINATION: '',
-            INSIDE: False,
+            DISCOVERED: False,
             UP: '',
             DOWN: 'b4',
             LEFT: 'a3',
@@ -251,7 +251,7 @@ def game_map():
         'b1': {
             ZONENAME: "",
             EXAMINATION: '',
-            INSIDE: False,
+            DISCOVERED: False,
             UP: 'a1',
             DOWN: 'c1',
             LEFT: '',
@@ -260,7 +260,7 @@ def game_map():
         'b2': {
             ZONENAME: "",
             EXAMINATION: '',
-            INSIDE: False,
+            DISCOVERED: False,
             UP: 'a2',
             DOWN: 'c2',
             LEFT: 'b1',
@@ -269,7 +269,7 @@ def game_map():
         'b3': {
             ZONENAME: "",
             EXAMINATION: '',
-            INSIDE: False, 
+            DISCOVERED: False, 
             UP: 'a3',
             DOWN: 'c3',
             LEFT: 'b2',
@@ -278,7 +278,7 @@ def game_map():
         'b4': {
             ZONENAME: "",
             EXAMINATION: '',
-            INSIDE: False,
+            DISCOVERED: False,
             UP: 'a4' ,
             DOWN: 'c4',
             LEFT: 'b3',
@@ -287,7 +287,7 @@ def game_map():
         'c1': {
             ZONENAME: "",
             EXAMINATION: '',
-            INSIDE: False,
+            DISCOVERED: False,
             UP: 'b1',
             DOWN: 'd1',
             LEFT: '',
@@ -296,7 +296,7 @@ def game_map():
         'c2': {
             ZONENAME: "",
             EXAMINATION: '',
-            INSIDE: False,
+            DISCOVERED: False,
             UP: 'b2',
             DOWN: 'd2',
             LEFT: 'c1',
@@ -305,7 +305,7 @@ def game_map():
         'c3': {
             ZONENAME: "",
             EXAMINATION: '',
-            INSIDE: False,
+            DISCOVERED: False,
             UP: 'b3',
             DOWN: 'd3',
             LEFT: 'c2',
@@ -314,7 +314,7 @@ def game_map():
         'c4': {
             ZONENAME: "",
             EXAMINATION: '',
-            INSIDE: False,
+            DISCOVERED: False,
             UP: 'b4',
             DOWN: 'd4',
             LEFT: 'c3',
@@ -323,7 +323,7 @@ def game_map():
         'd1': {
             ZONENAME: "",
             EXAMINATION: '',
-            INSIDE: False,
+            DISCOVERED: False,
             UP: 'c1',
             DOWN: '',
             LEFT: '',
@@ -332,7 +332,7 @@ def game_map():
         'd2': {
             ZONENAME: "",
             EXAMINATION: '',
-            INSIDE: False,
+            DISCOVERED: False,
             UP: 'c2',
             DOWN: '',
             LEFT: 'd1',
@@ -341,7 +341,7 @@ def game_map():
         'd3': {
             ZONENAME: "",
             EXAMINATION: '',
-            INSIDE: False,
+            DISCOVERED: False,
             UP: 'c3',
             DOWN: '',
             LEFT: 'd2',
@@ -350,7 +350,7 @@ def game_map():
         'd4': {
             ZONENAME: "",
             EXAMINATION: '',
-            INSIDE: False,
+            DISCOVERED: False,
             UP: 'c4',
             DOWN: '',
             LEFT: 'd3',
@@ -371,7 +371,7 @@ def prompt():
     print("2) Examine rooms")
     action = input("Number of choice: ")
     acceptable_actions = ('1', '2')
-    while action.lower() not in action:
+    while action not in acceptable_actions:
         print("Action, unknown. Please try again."),
         action = input("Number of choice: ")
     if action == '1':
@@ -382,16 +382,16 @@ def prompt():
 def player_move():
     destination = input("Where do you want to go? ")
     if destination == ['up', 'north']:
-        location = zonemap[player.location][UP],
+        location = zonemap[player.location][UP]
         movement_handler()
     elif destination == ['down', 'south']:
-        location = zonemap[player.location][DOWN],
+        location = zonemap[player.location][DOWN]
         movement_handler()
     elif destination == ['left', 'west']:
-        location = zonemap[player.location][LEFT],
+        location = zonemap[player.location][LEFT]
         movement_handler()
     elif destination == ['right', 'east']:
-        location = zonemap[player.location][RIGHT],
+        location = zonemap[player.location][RIGHT]
         movement_handler()
 
 def movement_handler():
