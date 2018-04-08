@@ -25,7 +25,7 @@ class Fireman:
         self.attack = '20'
         self.name = ''
         self.inventory = []
-        self.location = 'a1'
+        self.location = 'c1'
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -45,7 +45,7 @@ class Chef:
         self.attack = '10'
         self.name = ''
         self.inventory = []
-        self.location = 'a1'
+        self.location = 'c1'
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -65,7 +65,7 @@ class Martial_Artist:
         self.attack = '30'
         self.name = ''
         self.inventory = []
-        self.location = 'a1'
+        self.location = 'c1'
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -85,7 +85,7 @@ class Gambler:
         self.attack = '40'
         self.name = ''
         self.inventory = []
-        self.location = 'a1'
+        self.location = 'c1'
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -325,23 +325,23 @@ def player_move():
     destination = input("Where do you want to go? ")
     if destination in ['up', 'north']:
         location = zonemap[player.location][UP]
-        movement_handler()
+        movement_handler(location)
     elif destination in ['down', 'south']:
         location = zonemap[player.location][DOWN]
-        movement_handler()
+        movement_handler(location)
     elif destination in ['left', 'west']:
         location = zonemap[player.location][LEFT]
-        movement_handler()
+        movement_handler(location)
     elif destination in ['right', 'east']:
         location = zonemap[player.location][RIGHT]
-        movement_handler()
+        movement_handler(location)
     else:
         print('invalid direction'),
         player_move()
 
 
-def movement_handler():
-        location = player.location
+def movement_handler(location):
+        player.location = location
         if player.location == '':
             print('There is a wall that way. Go another direction.')
             player_move()
