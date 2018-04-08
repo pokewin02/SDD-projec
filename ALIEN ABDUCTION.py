@@ -15,13 +15,24 @@ import sys
 #        print ("self = ", self)
 
 
+weapon = {'laser gun'}
+
 class Fireman:
     def __init__(self):
-        self.health = '70'
-        self.attack = '20'
+        self.maxhealth = '70'
+        self.health = self.maxhealth
+        self.base_attack = '20'
         self.name = ''
         self.inventory = []
         self.location = 'c1'
+        self.equipweap = []
+
+    @property
+    def attack(self):
+        attack = self.base_attack
+        if self.equipweap == 'laser gun':
+            attack += 15
+        return attack
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -37,11 +48,20 @@ player = Fireman()
 
 class Chef:
     def __init__(self):
-        self.health = '80'
-        self.attack = '10'
+        self.maxhealth = '80'
+        self.health = self.maxhealth
+        self.base_attack = '10'
         self.name = ''
         self.inventory = []
         self.location = 'c1'
+        self.equipweap = []
+
+    @property
+    def attack(self):
+        attack = self.base_attack
+        if self.equipweap == 'laser gun':
+            attack += 15
+        return attack
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -57,11 +77,20 @@ player = Chef()
 
 class Martial_Artist:
     def __init__(self):
-        self.health = '60'
-        self.attack = '30'
+        self.maxhealth = '60'
+        self.health = self.maxhealth
+        self.base_attack = '30'
         self.name = ''
         self.inventory = []
         self.location = 'c1'
+        self.equipweap = []
+
+    @property
+    def attack(self):
+        attack = self.base_attack
+        if self.equipweap == 'laser gun':
+            attack += 15
+        return attack
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -77,11 +106,20 @@ player = Martial_Artist()
 
 class Gambler:
     def __init__(self):
-        self.health = '40'
-        self.attack = '40'
+        self.maxhealth = '40'
+        self.health = self.maxhealth
+        self.base_attack = '40'
         self.name = ''
         self.inventory = []
         self.location = 'c1'
+        self.equipweap = []
+
+    @property
+    def attack(self):
+        attack = self.base_attack
+        if self.equipweap == 'laser gun':
+            attack += 15
+        return attack
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -98,6 +136,8 @@ class Alien:
     def __init__(self):
         self.health = '75'
         self.attack = '15'
+enemy = Alien()
+
        
 
 enemy = Alien()
@@ -141,7 +181,7 @@ def gameStart():
     print("|           |")
     print("|___________|")
     print("\n")
-    print("You need to kill an alien and take it's keys to operate an escape pod.")
+    print("You need to a key to operate an escape pod.")
 
 
 def choose_occupation():
@@ -197,19 +237,20 @@ while loop == 1:
 
 
 #map
+print('\n')
+print('\n')
+print(" a1 a2...        ")  
+print("----------       ")
+print("|  |  |  | a3    ")
+print("----------       ")
+print("|  |  |  | b3 ...")
+print("----------       ")
+print("|  |  |  |       ")
+print("----------       ")
+print('\n')
+print('\n')
+print('This is the map')
 
-"""    
-a1 a2...    
-----------
-|  |  |  | a3
-----------
-|  |  |  | b3 ...
-----------
-|  |  |  |
-----------
-
-
-"""
 
 ZONENAME = ''
 EXAMINATION = 'examine'
@@ -309,13 +350,15 @@ zonemap = {
 
 }
 
+#placing key
+rooms = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3']
+room_with_key = random.choice(rooms)
 
 #MOVING AND STUFF
-def print_location():
-    print('\n')
-    print("You are in room", player.location)
 
 def prompt():
+    print('\n')
+    print("You are in room", player.location)
     print("What would you like to do?")
     print("1) Move room")
     print("2) Examine rooms")
@@ -355,14 +398,38 @@ def movement_handler(location):
             print('There is a wall that way. Go another direction.')
             prompt()
         else:
+            print('\n')
+            print('\n')
+            print(" a1 a2...        ")  
+            print("----------       ")
+            print("|  |  |  | a3    ")
+            print("----------       ")
+            print("|  |  |  | b3 ...")
+            print("----------       ")
+            print("|  |  |  |       ")
+            print("----------       ")
+            print('\n')
+            print('\n')
+            print('This is the map')
             print('\n' + 'You have moved to ' + location + '.')
             prompt()
 
 def player_examine():
+    print('\n')
     print('This room is the', zonemap[player.location][ZONENAME])
     print(zonemap[player.location][EXAMINATION] + '\n')
-    if player.location == 'a3':
+    if player.location == 'a3' and 'key' in player.inventory:
         game_win()
+    elif player.location == room_with_key:
+        print('Wait....There is a key on the floor. Pick it up? ')
+        choice = input('yes/no? ')
+        if choice == 'yes':
+            player.inventory.append('key')
+            print('You can now operate the escape pods')
+            print('\n')
+            prompt()
+        else:
+            prompt()
     else:
         prompt()
     
@@ -377,37 +444,9 @@ def game_win():
     else:
         game_win()
 
-print_location()
 prompt()
 
-def battle():
-    print('You are engaging in battle against an alien')
-    print('1.) Attack')
-    print('2.) Heal')
-    print('3.) Run')
-    option = input('number of choice: ')
-    if option == '1':
-        damage()
-    if option == '2':
-        heal()
-    if option == '3':
-        prompt()
-    else:
-        battle()
-    
-        
 
-def damage(player, alien):
-    damage = player.attack
-    alien.health = alien.health - damage
-    if alien.health <=0:
-        print('Alien has been slain')
-    else:
-        print('Alien is on ' + alien.health + '.')
-
-def heal(player):
-    if healing_flask in player.inventory:
-        player.health + 30
 
 
     
