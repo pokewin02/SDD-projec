@@ -189,7 +189,7 @@ while loop == 1:
     else:
         print('That ain\'t one of the classes.')
 
-def choose_item
+def choose_item():
     print('You can choose between')
     print('1.)laser gun')
     print('2.)health potion')
@@ -197,12 +197,38 @@ def choose_item
     if item_option == '1':
         player.inventory.append('laser gun')
         print(player.inventory)
+        #prompt()
     elif item_option == '2':
         player.inventory.append('healing potion')
         print(player.inventory)
+        #prompt()
     else:
         print('those aren\'t one of the options')
+        choose_item()
 
+choose_item()
+
+def inventory():
+    print ('What do you want to do')
+    print ('1.) Equip weapon')
+    print ('2.) Go back')
+    inventory_option = input('number of choice: ')
+    if inventory_option == '1':
+        equip()
+    elif option == '2':
+        prompt()
+
+def equip():
+    print ("What do you want to equip?")
+    for weapon in player.inventory:
+        print (weapon)
+    print ('b to go back')
+    equip_option = input('Choice: ')
+    if equip_option == 'b'
+        inventory()
+    elif equip_option in player.inventory:
+        player.equipweap = equip_option
+        print('You have now equipped ', equip_option)
 
 def battle():
     print('You are engaging in battle against an alien')
