@@ -14,21 +14,23 @@ def prompt():
         player_examine()
 
 def player_move():
-    dest = input("Where do you want to go? ")
-    destination = str(dest)
-    if destination == ('up', 'north'):
-        print("hi")
+    destination = input("Where do you want to go? ")
+    if destination in ['up', 'north']:
+        print('hi')
         #location = zonemap[player.location][UP]
         #movement_handler()
-    elif destination == ('down', 'south'):
+    elif destination in ['down', 'south']:
         location = zonemap[player.location][DOWN]
         movement_handler()
-    elif destination == ('left', 'west'):
+    elif destination in ['left', 'west']:
         location = zonemap[player.location][LEFT]
         movement_handler()
-    elif destination == ('right', 'east'):
+    elif destination in ['right', 'east']:
         location = zonemap[player.location][RIGHT]
         movement_handler()
+    else:
+        print('invalid direction'),
+        player_move()
 
 #def movement_handler():
         #location = player.location
