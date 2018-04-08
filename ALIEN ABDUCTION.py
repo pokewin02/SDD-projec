@@ -307,7 +307,7 @@ def print_location():
 
 def prompt():
     print('\n')
-    print("Would you like to do?")
+    print("What would you like to do?")
     print("1) Move room")
     print("2) Examine rooms")
     action = input("Number of choice: ")
@@ -344,7 +344,7 @@ def movement_handler(location):
         player.location = location
         if player.location == '':
             print('There is a wall that way. Go another direction.')
-            player_move()
+            prompt()
         else:
             print('\n' + 'You have moved to ' + location + '.')
             prompt()
@@ -352,7 +352,23 @@ def movement_handler(location):
 def player_examine():
     print('This room is the', zonemap[player.location][ZONENAME])
     print(zonemap[player.location][EXAMINATION])
+    if player.location == 'a3':
+        game_win()
+    else:
+        prompt()
     
+def game_win():
+    print('Do you want to get in an escape pod and head back to Earth?')
+    answer = input('yes/no? ')
+    if answer == 'yes':
+        print('You\'ve escaped!')
+        print('You win!')
+    elif answer == 'no':
+        prompt()
+    else:
+        game_win()
+
+
   
 print_location()
 prompt()
