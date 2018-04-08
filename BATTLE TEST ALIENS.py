@@ -7,13 +7,24 @@ import sys
 
 #BATTLE TEST#
 
+weapon = {'laser gun'}
+
 class Fireman:
     def __init__(self):
-        self.health = '70'
-        self.attack = '20'
+        self.maxhealth = '70'
+        self.health = self.maxhealth
+        self.base_attack = '20'
         self.name = ''
         self.inventory = []
         self.location = 'c1'
+        self.equipweap = []
+
+    @property
+    def attack(self):
+        attack = self.base_attack
+        if self.equipweap == 'laser gun':
+            attack += 15
+        return attack
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -29,11 +40,20 @@ player = Fireman()
 
 class Chef:
     def __init__(self):
-        self.health = '80'
-        self.attack = '10'
+        self.maxhealth = '80'
+        self.health = self.maxhealth
+        self.base_attack = '10'
         self.name = ''
         self.inventory = []
         self.location = 'c1'
+        self.equipweap = []
+
+    @property
+    def attack(self):
+        attack = self.base_attack
+        if self.equipweap == 'laser gun':
+            attack += 15
+        return attack
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -49,11 +69,20 @@ player = Chef()
 
 class Martial_Artist:
     def __init__(self):
-        self.health = '60'
-        self.attack = '30'
+        self.maxhealth = '60'
+        self.health = self.maxhealth
+        self.base_attack = '30'
         self.name = ''
         self.inventory = []
         self.location = 'c1'
+        self.equipweap = []
+
+    @property
+    def attack(self):
+        attack = self.base_attack
+        if self.equipweap == 'laser gun':
+            attack += 15
+        return attack
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -69,11 +98,20 @@ player = Martial_Artist()
 
 class Gambler:
     def __init__(self):
-        self.health = '40'
-        self.attack = '40'
+        self.maxhealth = '40'
+        self.health = self.maxhealth
+        self.base_attack = '40'
         self.name = ''
         self.inventory = []
         self.location = 'c1'
+        self.equipweap = []
+
+    @property
+    def attack(self):
+        attack = self.base_attack
+        if self.equipweap == 'laser gun':
+            attack += 15
+        return attack
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -90,8 +128,6 @@ class Alien:
     def __init__(self):
         self.health = '75'
         self.attack = '15'
-       
-
 enemy = Alien()
 
 #class laser_gun
@@ -151,7 +187,7 @@ while loop == 1:
         loop = 0
         print('These are your stats', player.name)
     else:
-        print('That aint one of the classes.')
+        print('That ain\'t one of the classes.')
 
 
 def battle():
@@ -161,7 +197,7 @@ def battle():
     print('3.) Run')
     option = input('number of choice: ')
     if option == '1':
-        damage_enemy()
+        damage_enemy(player, enemy)
     if option == '2':
         heal()
     if option == '3':
@@ -170,21 +206,30 @@ def battle():
         battle()
     
         
-
-def damage_enemy():
-    playeratk = int(player.attack)
-    playerhp = int(player.health)
-    enemyatk = int(enemy.attack)
-    enemyhp = int(enemy.health)
-    enemyhp = enemyhp - playeratk
-    if enemyhp <=0:
+def damage_enemy(attacker, defender):
+    damage = int(attacker.attack)
+    defender.health = int(defender.health) - damage
+    if defender.health <=0:
         print('Alien has been slain')
     else:
-        print('Alien is on', enemyhp,'health.')
-        battle()
+        print('Alien is on', defender.health,'health.')
+        damage_player(enemy, player)
+        
+def damage_player(attacker,defender):
+    print('\n')
+    print('The alien has retaliated')
+    damage = int(attacker.attack)
+    defender.health = int(defender.health) - damage
+    if defender.health <=0:
+        print('You have been slain')
+    else:
+        print('You are on', defender.health,'health.')
+
 
 def heal(player):
-    if healing_flask in player.inventory:
+    if healingflask in player.inventory:
         player.health + 30
+        
+    
 
 battle()
