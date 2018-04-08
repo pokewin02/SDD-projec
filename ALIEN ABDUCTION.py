@@ -216,8 +216,8 @@ discovered_places = {'a1': False, 'a2': False, 'a3': False,
 
 zonemap = {
     'a1': {
-        ZONENAME: "",
-        EXAMINATION: '',
+        ZONENAME: 'medical Bay',
+        EXAMINATION: 'There\'s nothing here.',
         DISCOVERED: False,
         UP: '',
         DOWN: 'b1',
@@ -225,8 +225,8 @@ zonemap = {
         RIGHT: 'a2',
     },
     'a2': {
-        ZONENAME: "",
-        EXAMINATION: '',
+        ZONENAME: 'lavatory',
+        EXAMINATION: 'There\'s nothing here.',
         DISCOVERED: False,
         UP: '',
         DOWN: 'b2',
@@ -234,8 +234,8 @@ zonemap = {
         RIGHT: 'a3',
     },
     'a3': {
-        ZONENAME: "",
-        EXAMINATION: '',
+        ZONENAME: 'emergency exit',
+        EXAMINATION: 'There are escape pods here.',
         DISCOVERED: False,
         UP: '',
         DOWN: 'b3',
@@ -243,8 +243,8 @@ zonemap = {
         RIGHT: '',
     },
     'b1': {
-        ZONENAME: "",
-        EXAMINATION: '',
+        ZONENAME: 'corridor',
+        EXAMINATION: 'There\'s nothing here.',
         DISCOVERED: False,
         UP: 'a1',
         DOWN: 'c1',
@@ -252,8 +252,8 @@ zonemap = {
         RIGHT: 'b2',
     },
     'b2': {
-        ZONENAME: "",
-        EXAMINATION: '',
+        ZONENAME: 'corridor',
+        EXAMINATION: 'There\'s nothing here.',
         DISCOVERED: False,
         UP: 'a2',
         DOWN: 'c2',
@@ -261,8 +261,8 @@ zonemap = {
         RIGHT: 'b3',
     },
     'b3': {
-        ZONENAME: "",
-        EXAMINATION: '',
+        ZONENAME: 'corridor',
+        EXAMINATION: 'There\'s nothing here.',
         DISCOVERED: False, 
         UP: 'a3',
         DOWN: 'c3',
@@ -270,8 +270,8 @@ zonemap = {
         RIGHT: '',
     },
     'c1': {
-        ZONENAME: "",
-        EXAMINATION: '',
+        ZONENAME: 'lab',
+        EXAMINATION: 'You need to get out of here!',
         DISCOVERED: False,
         UP: 'b1',
         DOWN: '',
@@ -279,8 +279,8 @@ zonemap = {
         RIGHT: 'c2',
     },
     'c2': {
-        ZONENAME: "",
-        EXAMINATION: '',
+        ZONENAME: 'armoury',
+        EXAMINATION: 'There\'s nothing here.',
         DISCOVERED: False,
         UP: 'b2',
         DOWN: '',
@@ -288,8 +288,8 @@ zonemap = {
         RIGHT: 'c3',
     },
     'c3': {
-        ZONENAME: "",
-        EXAMINATION: '',
+        ZONENAME: 'engine room',
+        EXAMINATION: 'There\'s nothing here.',
         DISCOVERED: False,
         UP: 'b3',
         DOWN: '',
@@ -349,7 +349,10 @@ def movement_handler(location):
             print('\n' + 'You have moved to ' + location + '.')
             prompt()
 
-
-       
+def player_examine():
+    print('This room is the', zonemap[player.location][ZONENAME])
+    print(zonemap[player.location][EXAMINATION])
+    
+  
 print_location()
 prompt()
