@@ -189,6 +189,20 @@ while loop == 1:
     else:
         print('That ain\'t one of the classes.')
 
+def choose_item
+    print('You can choose between')
+    print('1.)laser gun')
+    print('2.)health potion')
+    item_option = input('number of choice: ')
+    if item_option == '1':
+        player.inventory.append('laser gun')
+        print(player.inventory)
+    elif item_option == '2':
+        player.inventory.append('healing potion')
+        print(player.inventory)
+    else:
+        print('those aren\'t one of the options')
+
 
 def battle():
     print('You are engaging in battle against an alien')
@@ -210,7 +224,9 @@ def damage_enemy(attacker, defender):
     damage = int(attacker.attack)
     defender.health = int(defender.health) - damage
     if defender.health <=0:
+        print('\n')
         print('Alien has been slain')
+        #prompt()
     else:
         print('Alien is on', defender.health,'health.')
         damage_player(enemy, player)
@@ -222,13 +238,18 @@ def damage_player(attacker,defender):
     defender.health = int(defender.health) - damage
     if defender.health <=0:
         print('You have been slain')
+        print('Game over')
     else:
         print('You are on', defender.health,'health.')
 
 
-def heal(player):
-    if healingflask in player.inventory:
-        player.health + 30
+def heal():
+    if 'healing potion' in player.inventory:
+        health = int(player.health) + 30
+        print('You are on ', player.health, 'health.')
+    else:
+        ('You don\'t have a healing potion')
+        battle()
         
     
 
