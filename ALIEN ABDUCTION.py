@@ -7,11 +7,7 @@ import sys
 ## Player Creation##
 
 #class Occupation(object):
-    # job for all characters
-#    health = 0
-#    attack = 0
-#    name = ""
-#
+#   job for all characters
 #   def __init__(self, health, attack, occupation, name):
 #        self.health = health
 #        self.attack = attack
@@ -99,10 +95,22 @@ class Gambler:
 player = Gambler()
 
 class Alien:
-    health = '15'
-    attack = '40'
+    def __init__(self):
+        self.health = '75'
+        self.attack = '15'
+       
 
+enemy = Alien()
+
+#class laser_gun
+    #def __init__(self):
+        #self.attack = '15'
+
+#class health_flask
+    #def __init__(self):
+        #self.health = '30'
         
+     
 # Intro
 def gameStart():
     #time.sleep(2)
@@ -132,6 +140,8 @@ def gameStart():
     print("|Health: ?  |")
     print("|           |")
     print("|___________|")
+    print("\n")
+    print("You need to kill an alien and take it's keys to operate an escape pod.")
 
 
 def choose_occupation():
@@ -306,7 +316,6 @@ def print_location():
     print("You are in room", player.location)
 
 def prompt():
-    print('\n')
     print("What would you like to do?")
     print("1) Move room")
     print("2) Examine rooms")
@@ -351,7 +360,7 @@ def movement_handler(location):
 
 def player_examine():
     print('This room is the', zonemap[player.location][ZONENAME])
-    print(zonemap[player.location][EXAMINATION])
+    print(zonemap[player.location][EXAMINATION] + '\n')
     if player.location == 'a3':
         game_win()
     else:
@@ -361,14 +370,47 @@ def game_win():
     print('Do you want to get in an escape pod and head back to Earth?')
     answer = input('yes/no? ')
     if answer == 'yes':
-        print('You\'ve escaped!')
+        print('You\'ve escaped, ' + player.name + '!')
         print('You win!')
     elif answer == 'no':
         prompt()
     else:
         game_win()
 
-
-  
 print_location()
 prompt()
+
+def battle():
+    print('You are engaging in battle against an alien')
+    print('1.) Attack')
+    print('2.) Heal')
+    print('3.) Run')
+    option = input('number of choice: ')
+    if option == '1':
+        damage()
+    if option == '2':
+        heal()
+    if option == '3':
+        prompt()
+    else:
+        battle()
+    
+        
+
+def damage(player, alien):
+    damage = player.attack
+    alien.health = alien.health - damage
+    if alien.health <=0:
+        print('Alien has been slain')
+    else:
+        print('Alien is on ' + alien.health + '.')
+
+def heal(player):
+    if healing_flask in player.inventory:
+        player.health + 30
+
+
+    
+
+
+
