@@ -1,19 +1,4 @@
-import random
-import time
-import cmd
-import textwrap
-import os
-import sys
-## Player Creation##
-
-#class Occupation(object):
-#   job for all characters
-#   def __init__(self, health, attack, occupation, name):
-#        self.health = health
-#        self.attack = attack
-#        self.name = name
-#        print ("self = ", self)
-
+#Placing the aliens
 
 weapon = {'laser gun'}
 
@@ -133,24 +118,24 @@ class Gambler:
 player = Gambler()
 
 class Alien:
-    def __init__(self, location):
-        self.health = '75'
-        self.attack = '15'
-        location = 'a3'
+    def __init__(enemy):
+        enemy.health = '75'
+        enemy.attack = '15'
+        enemy.location = 'a3'
 enemy = Alien()
 
 class Alien:
-    def __init__(self, location):
-        self.health = '75'
-        self.attack = '15'
-        location = 'c3'
+    def __init__(enemy):
+        enemy.health = '75'
+        enemy.attack = '15'
+        enemy.location = 'a1'
 enemy = Alien()
 
 class Alien:
-    def __init__(self, location):
-        self.health = '75'
-        self.attack = '15'
-        location = 'a1'
+    def __init__(enemy):
+        enemy.health = '75'
+        enemy.attack = '15'
+        enemy.location = 'c3'
 enemy = Alien()
 
 #class laser_gun
@@ -163,37 +148,6 @@ enemy = Alien()
         
      
 # Intro
-def gameStart():
-    #time.sleep(2)
-    print("Hello there")
-    #time.sleep(2)
-    print("Welcome to....")
-    #time.sleep(2)
-    print("  ___   _  _                _____                                 ")
-    print(" / _ \ | |(_)              |  ___|                                ")
-    print("/ /_\ \| | _   ___  _ __   | |__   ___   ___   __ _  _ __    ___  ")
-    print("|  _  || || | / _ \| '_ \  |  __| / __| / __| / _` || '_ \  / _ \ ")
-    print("| | | || || ||  __/| | | | | |___ \__ \| (__ | (_| || |_) ||  __/ ")
-    print("\_| |_/|_||_| \___||_| |_| \____/ |___/ \___| \__,_|| .__/  \___| ")
-    print("                                                    | |           ")
-    print("                                                    |_|           ")
-    #time.sleep(2)
-    print(".....")
-    print("You've been abducted by aliens for experimentation...")
-    print("You wake up in the docking bay and you see a panel next to you")
-    print("It displays")
-    print(" ___________ ")
-    print("|           |")
-    print("|Job: ?     |")
-    print("|           |")
-    print("|Attack: ?  |")
-    print("|           |")
-    print("|Health: ?  |")
-    print("|           |")
-    print("|___________|")
-    print("\n")
-    print("You need a key to operate an escape pod.")
-
 
 def choose_occupation():
     print("\n\n")
@@ -213,7 +167,6 @@ def choose_occupation():
         return 'gambler'
 
 
-gameStart()   
 loop = 1
 while loop == 1:
     userChoice = choose_occupation()
@@ -362,107 +315,5 @@ zonemap = {
 
 }
 
-#placing key
-rooms = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3']
-room_with_key = random.choice(rooms)
-
-#MOVING AND STUFF
-
-def prompt():
-    print('\n')
-    print("You are in room", player.location)
-    print("What would you like to do?")
-    print("1) Move room")
-    print("2) Examine rooms")
-    print("3) Inventory options")
-    action = input("Number of choice: ")
-    acceptable_actions = ('1', '2')
-    while action not in acceptable_actions:
-        print("Action, unknown. Please try again."),
-        action = input("Number of choice: ")
-    if action == '1':
-        player_move()
-    elif action == '2':
-        player_examine()
-
-
-def player_move():
-    destination = input("Where do you want to go? ")
-    if destination in ['up', 'north']:
-        location = zonemap[player.location][UP]
-        movement_handler(location)
-    elif destination in ['down', 'south']:
-        location = zonemap[player.location][DOWN]
-        movement_handler(location)
-    elif destination in ['left', 'west']:
-        location = zonemap[player.location][LEFT]
-        movement_handler(location)
-    elif destination in ['right', 'east']:
-        location = zonemap[player.location][RIGHT]
-        movement_handler(location)
-    else:
-        print('invalid direction'),
-        player_move()
-
-
-def movement_handler(location):
-        player.location = location
-        if player.location == '':
-            print('There is a wall that way. Go another direction.')
-            prompt()
-        else:
-            print('\n')
-            print('\n')
-            print(" a1 a2...        ")  
-            print("----------       ")
-            print("|  |  |  | a3    ")
-            print("----------       ")
-            print("|  |  |  | b3 ...")
-            print("----------       ")
-            print("|  |  |  |       ")
-            print("----------       ")
-            print('\n')
-            print('\n')
-            print('This is the map')
-            print('\n' + 'You have moved to ' + location + '.')
-            prompt()
-
-def player_examine():
-    print('\n')
-    print('This room is the', zonemap[player.location][ZONENAME])
-    print(zonemap[player.location][EXAMINATION] + '\n')
-    if player.location == 'a3' and 'key' in player.inventory:
-        game_win()
-    elif player.location == room_with_key:
-        print('Wait....There is a key on the floor. Pick it up? ')
-        choice = input('yes/no? ')
-        if choice == 'yes':
-            player.inventory.append('key')
-            print('You can now operate the escape pods')
-            print('\n')
-            prompt()
-        else:
-            prompt()
-    else:
-        prompt()
-    
-def game_win():
-    print('Do you want to get in an escape pod and head back to Earth?')
-    answer = input('yes/no? ')
-    if answer == 'yes':
-        print('You\'ve escaped, ' + player.name + '!')
-        print('You win!')
-    elif answer == 'no':
-        prompt()
-    else:
-        game_win()
-
-prompt()
-
-
-
-
-    
-
-
-
+if enemy.location == 'c3':
+    print('wow')

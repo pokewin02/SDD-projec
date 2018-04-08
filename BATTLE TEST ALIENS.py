@@ -208,6 +208,18 @@ def choose_item():
 
 choose_item()
 
+def equip():
+    print ("What do you want to equip?")
+    for weapon in player.inventory:
+        print (weapon)
+    print ('b to go back')
+    equip_option = input('Choice: ')
+    if equip_option == 'b':
+        inventory()
+    elif equip_option in player.inventory:
+        player.equipweap = equip_option
+        print('You have now equipped', equip_option)
+        
 def inventory():
     print ('What do you want to do')
     print ('1.) Equip weapon')
@@ -215,20 +227,12 @@ def inventory():
     inventory_option = input('number of choice: ')
     if inventory_option == '1':
         equip()
-    elif option == '2':
-        prompt()
+    #elif option == '2':
+        #prompt()
 
-def equip():
-    print ("What do you want to equip?")
-    for weapon in player.inventory:
-        print (weapon)
-    print ('b to go back')
-    equip_option = input('Choice: ')
-    if equip_option == 'b'
-        inventory()
-    elif equip_option in player.inventory:
-        player.equipweap = equip_option
-        print('You have now equipped ', equip_option)
+inventory()
+
+
 
 def battle():
     print('You are engaging in battle against an alien')
@@ -271,7 +275,7 @@ def damage_player(attacker,defender):
 
 def heal():
     if 'healing potion' in player.inventory:
-        health = int(player.health) + 30
+        player.health = int(player.health) + 30
         print('You are on ', player.health, 'health.')
     else:
         ('You don\'t have a healing potion')
