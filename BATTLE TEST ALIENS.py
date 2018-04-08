@@ -196,11 +196,11 @@ def choose_item():
     item_option = input('number of choice: ')
     if item_option == '1':
         player.inventory.append('laser gun')
-        print(player.inventory)
+        print('You now have a',player.inventory)
         #prompt()
     elif item_option == '2':
         player.inventory.append('healing potion')
-        print(player.inventory)
+        print('You now have a',player.inventory)
         #prompt()
     else:
         print('those aren\'t one of the options')
