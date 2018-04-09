@@ -13,18 +13,15 @@ class Fireman:
     def __init__(self):
         self.maxhealth = '70'
         self.health = self.maxhealth
-        self.base_attack = '20'
+        self.attack = '20'
         self.name = ''
         self.inventory = []
         self.location = 'c1'
         self.equipweap = []
 
-    @property
     def attack(self):
-        attack = self.base_attack
         if self.equipweap == 'laser gun':
-            attack += 15
-        return attack
+            self.attack = int(self.attack) + 15
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -35,7 +32,7 @@ class Fireman:
     def print_stats(self):
         print("Health =", self.health)
         print("Attack =", self.attack)
-player = Fireman()    
+ 
 
 
 class Chef:
@@ -50,9 +47,8 @@ class Chef:
 
     @property
     def attack(self):
-        attack = self.base_attack
         if self.equipweap == 'laser gun':
-            attack += 15
+            attack = int(self.base_attack) + 15
         return attack
 
     def name_player(self):
@@ -219,6 +215,9 @@ def equip():
     elif equip_option in player.inventory:
         player.equipweap = equip_option
         print('You have now equipped', equip_option)
+        player.attack()
+    else:
+        equip()
         
 def inventory():
     print ('What do you want to do')
