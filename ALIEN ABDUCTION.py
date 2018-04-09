@@ -132,26 +132,33 @@ class Gambler:
         print("Attack =", self.attack)
 player = Gambler()
 
-class Alien:
-    def __init__(self, location):
+class alien1:
+    def __init__(self):
         self.health = '75'
         self.attack = '15'
-        location = 'a3'
-enemy = Alien()
+        rooms = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3']
+        self.location = random.choice(rooms)
+enemy = alien1()
 
-class Alien:
-    def __init__(self, location):
+class alien2:
+    def __init__(self):
         self.health = '75'
         self.attack = '15'
-        location = 'c3'
-enemy = Alien()
+        rooms = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3']
+        self.location = random.choice(rooms)
+enemy = alien2()
 
-class Alien:
-    def __init__(self, location):
+class alien3:
+    def __init__(self):
         self.health = '75'
         self.attack = '15'
-        location = 'a1'
-enemy = Alien()
+        rooms = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3']
+        self.location = random.choice(rooms)
+enemy = alien3()
+
+alien1()
+alien2()
+alien3()
 
 #class laser_gun
     #def __init__(self):
@@ -385,6 +392,59 @@ def prompt():
     elif action == '2':
         player_examine()
 
+def battle():
+    print('You are engaging in battle against an alien')
+    print('1.) Attack')
+    print('2.) Heal')
+    print('3.) Run')
+    option = input('number of choice: ')
+    if option == '1':
+        damage_enemy(player, enemy)
+    if option == '2':
+        heal()
+    if option == '3':
+        run_prompt()
+    else:
+        battle()
+
+def run_prompt():
+    print('\n')
+    print("You are in room", player.location)
+    print("You are about to escape, what would you like to do?")
+    print("1) Move room")
+    print("2) Get back into battle? ")
+    action = input("Number of choice: ")
+    acceptable_actions = ('1', '2')
+    while action not in acceptable_actions:
+        print("Action, unknown. Please try again."),
+        action = input("Number of choice: ")
+    if action == '1':
+        player_move()
+    elif action == '2':
+        battle()
+        
+        
+def damage_enemy(attacker, defender):
+    damage = int(attacker.attack)
+    defender.health = int(defender.health) - damage
+    if defender.health <=0:
+        print('\n')
+        print('Alien has been slain')
+        prompt()
+    else:
+        print('Alien is on', defender.health,'health.')
+        damage_player(enemy, player)
+        
+def damage_player(attacker,defender):
+    print('\n')
+    print('The alien has retaliated')
+    damage = int(attacker.attack)
+    defender.health = int(defender.health) - damage
+    if defender.health <=0:
+        game_over()
+    else:
+        print('You are on', defender.health,'health.')
+
 
 def player_move():
     destination = input("Where do you want to go? ")
@@ -410,6 +470,8 @@ def movement_handler(location):
         if player.location == '':
             print('There is a wall that way. Go another direction.')
             prompt()
+        elif player.location == enemy.location:
+            battle()
         else:
             print('\n')
             print('\n')
@@ -456,6 +518,20 @@ def game_win():
         prompt()
     else:
         game_win()
+
+def game_over():
+    print('You have been slain')
+    print('Game over!')
+    print('1.) Try again?')
+    print('2.) Quit')
+    option = input('Number of choice: ')
+    if option == '1':
+        gameStart()
+    elif option == '2':
+        print ('Goodbye')
+        exit()
+    else:
+        print('Not a valid option')
 
 prompt()
 
