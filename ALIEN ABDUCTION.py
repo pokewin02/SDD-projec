@@ -151,7 +151,7 @@ enemy2 = alien2()
 alien1()
 alien2()
 
-enemy = enemy1 and enemy2
+
 
 
 
@@ -377,9 +377,9 @@ def prompt():
     print("What would you like to do?")
     print("1) Move room")
     print("2) Examine rooms")
-    #print("3) Inventory options")
+    print("3) Check inventory")
     action = input("Number of choice: ")
-    acceptable_actions = ('1', '2')
+    acceptable_actions = ('1', '2', '3')
     while action not in acceptable_actions:
         print("Action, unknown. Please try again."),
         action = input("Number of choice: ")
@@ -387,7 +387,15 @@ def prompt():
         player_move()
     elif action == '2':
         player_examine()
-    #elif action == '3':
+    elif action == '3':
+        if player.inventory == []:
+            print('There\'s nothing in your inventory.')
+            prompt()
+        else:
+            print('Inventory items: ' + player.inventory)
+            prompt()
+        
+        
         
 
 def battle():
@@ -397,7 +405,10 @@ def battle():
     print('2.) Run')
     option = input('number of choice: ')
     if option == '1':
-        damage_enemy(player, enemy)
+        if player.location == enemy1.location:
+            damage_enemy(player, enemy1)
+        elif player.location == enemy2.location:
+            damage_enemy(player, enemy2)
     if option == '2':
         run_prompt()
     else:
@@ -418,7 +429,7 @@ def run_prompt():
         hp = int(player.health) - 30
         health = str(hp)
         print('While escaping, you were damage and have ' + health + ' remaining health.')
-        if int(player.health) < 0:
+        if int(health) < 0:
                 game_over()
         else:
             player.health = health
@@ -436,7 +447,10 @@ def damage_enemy(attacker, defender):
         prompt()
     else:
         print('Alien is on', defender.health,'health.')
-        damage_player(enemy, player)
+        if player.location == enemy1.location:
+            damage_player(enemy1, player)
+        elif player.location == enemy2.location:
+            damage_player(enemy2, player)
         
 def damage_player(attacker,defender):
     print('\n')
@@ -488,8 +502,10 @@ def player_move():
 
 def movement_handler(location):
     player.location = location
-    if player.location == enemy.location:
-            battle()
+    if player.location == enemy1.location:
+        battle()
+    elif player.location == enemy2.location:
+        battle()
     else:
         print('\n')
         print('\n')
@@ -540,20 +556,11 @@ def game_win():
 def game_over():
     print('You have been slain')
     print('Game over!')
-    print('1.) Try again?')
-    print('2.) Quit')
-    option = input('Number of choice: ')
-    if option == '1':
-        restart_program()
-    elif option == '2':
-        print ('Goodbye')
-        exit()
-    else:
-        print('Not a valid option')
+    print('Re-open program to retry')
+    os.system("pause")
+    sys.exit()
+    
 
-def restart_program():
-    python = sys.executable
-    os.execl(python, python, * sys.argv)
 
 prompt()
 
