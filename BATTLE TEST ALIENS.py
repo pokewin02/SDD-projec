@@ -19,9 +19,12 @@ class Fireman:
         self.location = 'c1'
         self.equipweap = []
 
-    def attack(self):
+    @property
+    def weap_attack(self):
+        attack = int(self.attack)
         if self.equipweap == 'laser gun':
-            self.attack = int(self.attack) + 15
+            attack += 15
+        return attack
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -215,7 +218,7 @@ def equip():
     elif equip_option in player.inventory:
         player.equipweap = equip_option
         print('You have now equipped', equip_option)
-        player.attack()
+        player.weap_attack()
     else:
         equip()
         
