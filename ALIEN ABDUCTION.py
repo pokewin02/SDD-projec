@@ -136,29 +136,25 @@ class alien1:
     def __init__(self):
         self.health = '75'
         self.attack = '15'
-        rooms = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3']
+        rooms = ['a1', 'a2', 'b1', 'b2', 'b3', 'c2', 'c3']
         self.location = random.choice(rooms)
-enemy = alien1()
+enemy1 = alien1()
 
 class alien2:
     def __init__(self):
         self.health = '75'
         self.attack = '15'
-        rooms = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3']
+        rooms = ['a1', 'a2', 'b1', 'b2', 'b3', 'c2', 'c3']
         self.location = random.choice(rooms)
-enemy = alien2()
-
-class alien3:
-    def __init__(self):
-        self.health = '75'
-        self.attack = '15'
-        rooms = ['a1', 'a2', 'a3', 'b1', 'b2', 'b3', 'c1', 'c2', 'c3']
-        self.location = random.choice(rooms)
-enemy = alien3()
+enemy2 = alien2()
 
 alien1()
 alien2()
-alien3()
+
+enemy = enemy1 and enemy2
+
+
+
 
 #class laser_gun
     #def __init__(self):
@@ -395,7 +391,8 @@ def prompt():
         
 
 def battle():
-    print('You are engaging in battle against an alien')
+    print('The alien is in front of you')
+    print('You are engaging in battle against the alien')
     print('1.) Attack')
     print('2.) Run')
     option = input('number of choice: ')
@@ -423,8 +420,9 @@ def run_prompt():
         print('While escaping, you were damage and have ' + health + ' remaining health.')
         if int(player.health) < 0:
                 game_over()
-        return player.health,
-        player_move()
+        else:
+            player.health = health
+            player_move()
     elif action == '2':
         battle()
 
@@ -546,12 +544,16 @@ def game_over():
     print('2.) Quit')
     option = input('Number of choice: ')
     if option == '1':
-        gameStart()
+        restart_program()
     elif option == '2':
         print ('Goodbye')
         exit()
     else:
         print('Not a valid option')
+
+def restart_program():
+    python = sys.executable
+    os.execl(python, python, * sys.argv)
 
 prompt()
 
