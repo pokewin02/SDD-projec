@@ -16,18 +16,34 @@ def prompt():
 def player_move():
     destination = input("Where do you want to go? ")
     if destination in ['up', 'north']:
-        print('hi')
-        #location = zonemap[player.location][UP]
-        #movement_handler()
+        print('Hi')
+        #if zonemap[player.location][UP] == '':
+            #print ('There is a wall that way. Go another direction.')
+            #prompt()
+        #else:
+            #location = zonemap[player.location][UP]
+            #movement_handler(location)
     elif destination in ['down', 'south']:
-        location = zonemap[player.location][DOWN]
-        movement_handler()
+        if zonemap[player.location][DOWN] == '':
+            print ('There is a wall that way. Go another direction.')
+            prompt()
+        else:
+            location = zonemap[player.location][DOWN]
+            movement_handler(location)
     elif destination in ['left', 'west']:
-        location = zonemap[player.location][LEFT]
-        movement_handler()
+        if zonemap[player.location][LEFT] == '':
+            print ('There is a wall that way. Go another direction.')
+            prompt()
+        else:
+            location = zonemap[player.location][LEFT]
+            movement_handler(location)
     elif destination in ['right', 'east']:
-        location = zonemap[player.location][RIGHT]
-        movement_handler()
+        if zonemap[player.location][RIGHT] == '':
+            print ('There is a wall that way. Go another direction.')
+            prompt()
+        else:
+            location = zonemap[player.location][RIGHT]
+            movement_handler(location)
     else:
         print('invalid direction'),
         player_move()
