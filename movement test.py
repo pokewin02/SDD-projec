@@ -32,8 +32,28 @@ def player_move():
         print('invalid direction'),
         player_move()
 
-#def movement_handler():
-        #location = player.location
-        #print('\n' + 'You have moved to ' + player.location + '.')
+def movement_handler(location):
+    player.location = location
+    if player.location == enemy1.location:
+        battle()
+    elif player.location == enemy2.location:
+        battle()
+    else:
+        print('\n')
+        print('\n')
+        print(" a1 a2...        ")  
+        print("----------       ")
+        print("|  |  |  | a3    ")
+        print("----------       ")
+        print("|  |  |  | b3 ...")
+        print("----------       ")
+        print("|  |  |  |       ")
+        print("----------       ")
+        print('\n')
+        print('\n')
+        print('This is the map')
+        print('\n' + 'You have moved to ' + location + '.')
+        prompt()
+
 
 prompt()
