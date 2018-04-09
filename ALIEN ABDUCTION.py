@@ -381,7 +381,7 @@ def prompt():
     print("What would you like to do?")
     print("1) Move room")
     print("2) Examine rooms")
-    print("3) Inventory options")
+    #print("3) Inventory options")
     action = input("Number of choice: ")
     acceptable_actions = ('1', '2')
     while action not in acceptable_actions:
@@ -391,18 +391,17 @@ def prompt():
         player_move()
     elif action == '2':
         player_examine()
+    #elif action == '3':
+        
 
 def battle():
     print('You are engaging in battle against an alien')
     print('1.) Attack')
-    print('2.) Heal')
-    print('3.) Run')
+    print('2.) Run')
     option = input('number of choice: ')
     if option == '1':
         damage_enemy(player, enemy)
     if option == '2':
-        heal()
-    if option == '3':
         run_prompt()
     else:
         battle()
@@ -419,10 +418,16 @@ def run_prompt():
         print("Action, unknown. Please try again."),
         action = input("Number of choice: ")
     if action == '1':
+        hp = int(player.health) - 30
+        health = str(hp)
+        print('While escaping, you were damage and have ' + health + ' remaining health.')
+        if int(player.health) < 0:
+                game_over()
+        return player.health,
         player_move()
     elif action == '2':
         battle()
-        
+
         
 def damage_enemy(attacker, defender):
     damage = int(attacker.attack)
@@ -444,50 +449,65 @@ def damage_player(attacker,defender):
         game_over()
     else:
         print('You are on', defender.health,'health.')
+        return defender.health
+        battle()
 
 
 def player_move():
     destination = input("Where do you want to go? ")
     if destination in ['up', 'north']:
-        location = zonemap[player.location][UP]
-        movement_handler(location)
+        if zonemap[player.location][UP] == '':
+            print ('There is a wall that way. Go another direction.')
+            prompt()
+        else:
+            location = zonemap[player.location][UP]
+            movement_handler(location)
     elif destination in ['down', 'south']:
-        location = zonemap[player.location][DOWN]
-        movement_handler(location)
+        if zonemap[player.location][DOWN] == '':
+            print ('There is a wall that way. Go another direction.')
+            prompt()
+        else:
+            location = zonemap[player.location][DOWN]
+            movement_handler(location)
     elif destination in ['left', 'west']:
-        location = zonemap[player.location][LEFT]
-        movement_handler(location)
+        if zonemap[player.location][LEFT] == '':
+            print ('There is a wall that way. Go another direction.')
+            prompt()
+        else:
+            location = zonemap[player.location][LEFT]
+            movement_handler(location)
     elif destination in ['right', 'east']:
-        location = zonemap[player.location][RIGHT]
-        movement_handler(location)
+        if zonemap[player.location][RIGHT] == '':
+            print ('There is a wall that way. Go another direction.')
+            prompt()
+        else:
+            location = zonemap[player.location][RIGHT]
+            movement_handler(location)
     else:
         print('invalid direction'),
         player_move()
 
 
 def movement_handler(location):
-        player.location = location
-        if player.location == '':
-            print('There is a wall that way. Go another direction.')
-            prompt()
-        elif player.location == enemy.location:
+    player.location = location
+    if player.location == enemy.location:
             battle()
-        else:
-            print('\n')
-            print('\n')
-            print(" a1 a2...        ")  
-            print("----------       ")
-            print("|  |  |  | a3    ")
-            print("----------       ")
-            print("|  |  |  | b3 ...")
-            print("----------       ")
-            print("|  |  |  |       ")
-            print("----------       ")
-            print('\n')
-            print('\n')
-            print('This is the map')
-            print('\n' + 'You have moved to ' + location + '.')
-            prompt()
+    else:
+        print('\n')
+        print('\n')
+        print(" a1 a2...        ")  
+        print("----------       ")
+        print("|  |  |  | a3    ")
+        print("----------       ")
+        print("|  |  |  | b3 ...")
+        print("----------       ")
+        print("|  |  |  |       ")
+        print("----------       ")
+        print('\n')
+        print('\n')
+        print('This is the map')
+        print('\n' + 'You have moved to ' + location + '.')
+        prompt()
 
 def player_examine():
     print('\n')
