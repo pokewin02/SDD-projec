@@ -194,7 +194,8 @@ def gameStart():
     print("|___________|")
     print("\n")
     print("You need a key to operate an escape pod.")
-    print("Examine rooms too look for key")
+    print("Examine rooms too look for the key.")
+    time.sleep(3)
 
 
 def choose_occupation():
@@ -225,24 +226,28 @@ while loop == 1:
         player.print_stats()
         loop = 0
         print('These are your stats', player.name)
+        time.sleep(2)
     elif userChoice == 'chef':
         player = Chef()
         player.name_player()
         player.print_stats()
         loop = 0
         print('These are your stats', player.name)
+        time.sleep(2)
     elif userChoice == 'martial_artist':
         player = Martial_Artist()
         player.name_player()
         player.print_stats()
         loop = 0
         print('These are your stats', player.name)
+        time.sleep(2)
     elif userChoice == 'gambler':
         player = Gambler()
         player.name_player()
         player.print_stats()
         loop = 0
         print('These are your stats', player.name)
+        time.sleep(2)
     else:
         print('\n')
         print('That ain\'t one of the jobs.')
@@ -398,6 +403,7 @@ def prompt():
         
 
 def battle():
+    print('\n')
     print('The alien is in front of you')
     print('You are engaging in battle against the alien')
     print('1.) Attack')
@@ -544,21 +550,22 @@ def game_win():
     print('Do you want to get in an escape pod and head back to Earth?')
     answer = input('yes/no? ')
     if answer == 'yes':
+        print('\n')
         print('You\'ve escaped, ' + player.name + '!')
         print('You win!')
+        print('Re-open program to try again')
         os.system("pause")
-        sys.exit()
     elif answer == 'no':
         prompt()
     else:
         game_win()
 
 def game_over():
+    print('\n')
     print('You have been slain')
     print('Game over!')
     print('Re-open program to retry')
     os.system("pause")
-    sys.exit()
     
 
 
