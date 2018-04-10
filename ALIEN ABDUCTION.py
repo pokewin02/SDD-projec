@@ -21,18 +21,18 @@ class Fireman:
     def __init__(self):
         self.maxhealth = '70'
         self.health = self.maxhealth
-        self.base_attack = '20'
+        self.attack = '20'
         self.name = ''
         self.inventory = []
         self.location = 'c1'
-        self.equipweap = []
+        #self.equipweap = []
 
-    @property
-    def attack(self):
-        attack = self.base_attack
-        if self.equipweap == 'laser gun':
-            attack += 15
-        return attack
+    #@property
+    #def attack(self):
+        #attack = self.base_attack
+        #if self.equipweap == 'laser gun':
+            #attack += 15
+        #return attack
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -50,18 +50,18 @@ class Chef:
     def __init__(self):
         self.maxhealth = '80'
         self.health = self.maxhealth
-        self.base_attack = '10'
+        self.attack = '10'
         self.name = ''
         self.inventory = []
         self.location = 'c1'
-        self.equipweap = []
+        #self.equipweap = []
 
-    @property
-    def attack(self):
-        attack = self.base_attack
-        if self.equipweap == 'laser gun':
-            attack += 15
-        return attack
+    #@property
+    #def attack(self):
+        #attack = self.base_attack
+        #if self.equipweap == 'laser gun':
+            #attack += 15
+        #return attack
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -79,18 +79,18 @@ class Martial_Artist:
     def __init__(self):
         self.maxhealth = '60'
         self.health = self.maxhealth
-        self.base_attack = '30'
+        self.attack = '30'
         self.name = ''
         self.inventory = []
         self.location = 'c1'
-        self.equipweap = []
+        #self.equipweap = []
 
-    @property
-    def attack(self):
-        attack = self.base_attack
-        if self.equipweap == 'laser gun':
-            attack += 15
-        return attack
+    #@property
+    #def attack(self):
+        #attack = self.base_attack
+        #if self.equipweap == 'laser gun':
+            #attack += 15
+        #return attack
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -108,18 +108,18 @@ class Gambler:
     def __init__(self):
         self.maxhealth = '40'
         self.health = self.maxhealth
-        self.base_attack = '40'
+        self.attack = '40'
         self.name = ''
         self.inventory = []
         self.location = 'c1'
-        self.equipweap = []
+        #self.equipweap = []
 
-    @property
-    def attack(self):
-        attack = self.base_attack
-        if self.equipweap == 'laser gun':
-            attack += 15
-        return attack
+    #@property
+    #def attack(self):
+        #attack = self.base_attack
+        #if self.equipweap == 'laser gun':
+            #attack += 15
+        #return attack
 
     def name_player(self):
         self.name = input('Enter your name? ')
@@ -167,11 +167,9 @@ alien2()
      
 # Intro
 def gameStart():
-    #time.sleep(2)
     print("Hello there")
-    #time.sleep(2)
     print("Welcome to....")
-    #time.sleep(2)
+    time.sleep(1)
     print("  ___   _  _                _____                                 ")
     print(" / _ \ | |(_)              |  ___|                                ")
     print("/ /_\ \| | _   ___  _ __   | |__   ___   ___   __ _  _ __    ___  ")
@@ -180,7 +178,7 @@ def gameStart():
     print("\_| |_/|_||_| \___||_| |_| \____/ |___/ \___| \__,_|| .__/  \___| ")
     print("                                                    | |           ")
     print("                                                    |_|           ")
-    #time.sleep(2)
+    time.sleep(1)
     print(".....")
     print("You've been abducted by aliens for experimentation...")
     print("You wake up in the docking bay and you see a panel next to you")
@@ -196,6 +194,7 @@ def gameStart():
     print("|___________|")
     print("\n")
     print("You need a key to operate an escape pod.")
+    print("Examine rooms too look for key")
 
 
 def choose_occupation():
@@ -282,7 +281,7 @@ discovered_places = {'a1': False, 'a2': False, 'a3': False,
 
 zonemap = {
     'a1': {
-        ZONENAME: 'medical Bay',
+        ZONENAME: 'medical bay',
         EXAMINATION: 'There\'s nothing here.',
         DISCOVERED: False,
         UP: '',
@@ -392,7 +391,7 @@ def prompt():
             print('There\'s nothing in your inventory.')
             prompt()
         else:
-            print('Inventory items: ' + player.inventory)
+            print('Inventory items: ' + str(player.inventory))
             prompt()
         
         
@@ -409,7 +408,7 @@ def battle():
             damage_enemy(player, enemy1)
         elif player.location == enemy2.location:
             damage_enemy(player, enemy2)
-    if option == '2':
+    elif option == '2':
         run_prompt()
     else:
         battle()
@@ -443,7 +442,7 @@ def damage_enemy(attacker, defender):
     defender.health = int(defender.health) - damage
     if defender.health <=0:
         print('\n')
-        print('Alien has been slain')
+        print('Alien has been defeated')
         prompt()
     else:
         print('Alien is on', defender.health,'health.')
@@ -461,20 +460,19 @@ def damage_player(attacker,defender):
         game_over()
     else:
         print('You are on', defender.health,'health.')
-        return defender.health
-        battle()
+        return defender.health and battle()
 
 
 def player_move():
     destination = input("Where do you want to go? ")
-    if destination in ['up', 'north']:
+    if destination in ['up', 'north', 'forward']:
         if zonemap[player.location][UP] == '':
             print ('There is a wall that way. Go another direction.')
             prompt()
         else:
             location = zonemap[player.location][UP]
             movement_handler(location)
-    elif destination in ['down', 'south']:
+    elif destination in ['down', 'south', 'back']:
         if zonemap[player.location][DOWN] == '':
             print ('There is a wall that way. Go another direction.')
             prompt()
@@ -548,6 +546,8 @@ def game_win():
     if answer == 'yes':
         print('You\'ve escaped, ' + player.name + '!')
         print('You win!')
+        os.system("pause")
+        sys.exit()
     elif answer == 'no':
         prompt()
     else:

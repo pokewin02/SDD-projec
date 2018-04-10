@@ -198,7 +198,7 @@ def choose_item():
         print('You now have a',player.inventory)
         #prompt()
     elif item_option == '2':
-        player.inventory.append('healing potion')
+        player.inventory.append('health potion')
         print('You now have a',player.inventory)
         #prompt()
     else:
@@ -225,43 +225,68 @@ def equip():
 def inventory():
     print ('What do you want to do')
     print ('1.) Equip weapon')
+    print ('2.) Drink potion')
     print ('2.) Go back')
     inventory_option = input('number of choice: ')
     if inventory_option == '1':
         equip()
-    #elif option == '2':
-        #prompt()
+    elif inventory_option == '2':
+        heal()
 
-inventory()
-
+#inventory()
 
 
 def battle():
-    print('You are engaging in battle against an alien')
+    print('The alien is in front of you')
+    print('You are engaging in battle against the alien')
     print('1.) Attack')
-    print('2.) Heal')
-    print('3.) Run')
+    print('2.) Run')
+    print('3.) Heal')
     option = input('number of choice: ')
     if option == '1':
         damage_enemy(player, enemy)
-    if option == '2':
-        heal()
-    if option == '3':
-        prompt()
+    elif option == '2':
+        run_prompt()
+    elif option == '3':
+        battle_heal()
     else:
         battle()
-    
+
+def run_prompt():
+    print('\n')
+    print("You are in room", player.location)
+    print("You are about to escape, what would you like to do?")
+    print("1) Move room")
+    print("2) Get back into battle? ")
+    action = input("Number of choice: ")
+    acceptable_actions = ('1', '2')
+    while action not in acceptable_actions:
+        print("Action, unknown. Please try again."),
+        action = input("Number of choice: ")
+    if action == '1':
+        hp = int(player.health) - 30
+        health = str(hp)
+        print('While escaping, you were damage and have ' + health + ' remaining health.')
+        if int(health) < 0:
+                game_over()
+        else:
+            player.health = health
+            player_move()
+    elif action == '2':
+        battle()
+
         
 def damage_enemy(attacker, defender):
     damage = int(attacker.attack)
     defender.health = int(defender.health) - damage
     if defender.health <=0:
         print('\n')
-        print('Alien has been slain')
-        #prompt()
+        print('Alien has been defeated')
+        prompt()
     else:
         print('Alien is on', defender.health,'health.')
         damage_player(enemy, player)
+
         
 def damage_player(attacker,defender):
     print('\n')
@@ -269,19 +294,30 @@ def damage_player(attacker,defender):
     damage = int(attacker.attack)
     defender.health = int(defender.health) - damage
     if defender.health <=0:
-        print('You have been slain')
-        print('Game over')
+        game_over()
     else:
         print('You are on', defender.health,'health.')
+        return defender.health
+        battle()
 
 
-def heal():
-    if 'healing potion' in player.inventory:
+
+def battle_heal():
+    if 'health potion' in player.inventory:
         player.health = int(player.health) + 30
         print('You are on ', player.health, 'health.')
     else:
-        ('You don\'t have a healing potion')
+        ('You don\'t have a health potion')
         battle()
+
+def heal():
+    if 'health potion' in player.inventory:
+        player.health = int(player.health) + 30
+        print('You are on ', player.health, 'health.')
+    else:
+        ('You don\'t have a health potion')
+        prompt()
+        
         
     
 
