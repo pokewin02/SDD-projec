@@ -181,7 +181,7 @@ def gameStart():
     time.sleep(1)
     print(".....")
     print("You've been abducted by aliens for experimentation...")
-    print("You wake up in the docking bay and you see a panel next to you")
+    print("You wake up in the lab and you see a panel next to you")
     print("It displays")
     print(" ___________ ")
     print("|           |")
@@ -194,7 +194,7 @@ def gameStart():
     print("|___________|")
     print("\n")
     print("You need a key to operate an escape pod.")
-    print("Examine rooms too look for the key.")
+    print("Examine rooms too look for the key and escape pod.")
     time.sleep(3)
 
 
@@ -258,13 +258,13 @@ while loop == 1:
 #map
 print('\n')
 print('\n')
-print(" a1 a2...        ")  
+print(" a1 a2 a3        ")  
 print("----------       ")
 print("|  |  |  | a3    ")
 print("----------       ")
-print("|  |  |  | b3 ...")
+print("|  |  |  | b3    ")
 print("----------       ")
-print("|  |  |  |       ")
+print("|  |  |  | c3    ")
 print("----------       ")
 print('\n')
 print('\n')
@@ -398,10 +398,9 @@ def prompt():
         else:
             print('Inventory items: ' + str(player.inventory))
             prompt()
-        
-        
-        
+            
 
+#Battle logic
 def battle():
     print('\n')
     print('The alien is in front of you')
@@ -419,6 +418,7 @@ def battle():
     else:
         battle()
 
+#Running away
 def run_prompt():
     print('\n')
     print("You are in room", player.location)
@@ -442,7 +442,7 @@ def run_prompt():
     elif action == '2':
         battle()
 
-        
+#Damage to enemy        
 def damage_enemy(attacker, defender):
     damage = int(attacker.attack)
     defender.health = int(defender.health) - damage
@@ -456,7 +456,8 @@ def damage_enemy(attacker, defender):
             damage_player(enemy1, player)
         elif player.location == enemy2.location:
             damage_player(enemy2, player)
-        
+
+#damage to player  
 def damage_player(attacker,defender):
     print('\n')
     print('The alien has retaliated')
@@ -468,7 +469,7 @@ def damage_player(attacker,defender):
         print('You are on', defender.health,'health.')
         return defender.health and battle()
 
-
+#Moving player
 def player_move():
     destination = input("Where do you want to go? ")
     if destination in ['up', 'north', 'forward']:
@@ -513,13 +514,13 @@ def movement_handler(location):
     else:
         print('\n')
         print('\n')
-        print(" a1 a2...        ")  
+        print(" a1 a2 a3        ")  
         print("----------       ")
         print("|  |  |  | a3    ")
         print("----------       ")
-        print("|  |  |  | b3 ...")
+        print("|  |  |  | b3    ")
         print("----------       ")
-        print("|  |  |  |       ")
+        print("|  |  |  | c3    ")
         print("----------       ")
         print('\n')
         print('\n')
@@ -527,6 +528,7 @@ def movement_handler(location):
         print('\n' + 'You have moved to ' + location + '.')
         prompt()
 
+#Examination
 def player_examine():
     print('\n')
     print('This room is the', zonemap[player.location][ZONENAME])
@@ -545,7 +547,8 @@ def player_examine():
             prompt()
     else:
         prompt()
-    
+
+#Win 
 def game_win():
     print('Do you want to get in an escape pod and head back to Earth?')
     answer = input('yes/no? ')
@@ -560,6 +563,7 @@ def game_win():
     else:
         game_win()
 
+#Game over
 def game_over():
     print('\n')
     print('You have been slain')
@@ -567,7 +571,6 @@ def game_over():
     print('Re-open program to retry')
     os.system("pause")
     
-
 
 prompt()
 
